@@ -15,7 +15,13 @@ class CategoryController {
         return response.status(400).json({ error: err.errors })
       }
 
-      const { admin: isAdmin } = await User.findByPk(request.userId)
+      const user = await User.findByPk(request.userId)
+
+      if (!user) {
+        return response.status(401).json()
+      }
+
+      const isAdmin = user.admin
 
       if (!isAdmin) {
         return response.status(401).json()
@@ -61,7 +67,13 @@ class CategoryController {
         return response.status(400).json({ error: err.errors })
       }
 
-      const { admin: isAdmin } = await User.findByPk(request.userId)
+      const user = await User.findByPk(request.userId)
+
+      if (!user) {
+        return response.status(401).json()
+      }
+
+      const isAdmin = user.admin
 
       if (!isAdmin) {
         return response.status(401).json()
